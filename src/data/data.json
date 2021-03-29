@@ -1,23 +1,17 @@
 {
     "Header": {
 
-        "title": "We are a Landing Page",
-        "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
+        "title": "Teleconsul",
+        "paragraph": "Somos un sitio comunitario de consultas en línea. Programa tu cita virtual GRATIS."
 
     },
     "About": {
-        "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "paragraph": "Somos una iniciativa ciudadana y nacimos en noviembre del 2020 en medio de la pandemia por COVID – 19 que tuvo como una de las consecuencias el aislamiento social, esto género que muchos ciudadanos perdieran sus empleos acentuando los problemas de nuestra sociedad entre ellos el acceso a servicios básicos para el soporte de la persona. Cámara Help es una plataforma colaborativa donde ciudadanos de buena fe, brindan servicios profesionales y pactan citas de atención que a través de una computadora o celular con internet pueden tener sin costo alguno. Los servicios principales que se pueden agendar a través del agendamiento de citas son ligados a la Medicina, Orientación psicológica y Asesoría legal. Como respaldo institucional tenemos a la Cámara de Comercio Empresarial y estamos seguros de que los enlaces futuros serán parte de un compromiso por trabajar en un mundo globalizado con igualdad de oportunidades. Te invitamos a postular para ser Voluntario en nuestra plataforma y así poder ayudar a mejorar vidas.",
         "Why": [
-            "Lorem ipsum dolor",
-            "Tempor incididunt",
-            "Lorem ipsum dolor",
-            "Incididunt ut labore"
+           ""
         ],
         "Why2": [
-            "Aliquip ex ea commodo",
-            "Lorem ipsum dolor",
-            "Exercitation ullamco",
-            "Lorem ipsum dolor"
+            ""
         ]
     },
     "Services": [{

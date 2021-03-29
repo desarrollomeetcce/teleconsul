@@ -2,22 +2,30 @@ export const Gallery = (props) => {
   return (
     <div id='portfolio' className='text-center'>
       <div className='container'>
-        <div className='section-title'>
-          <h2>Gallery</h2>
+        <div className='col-md-10 col-md-offset-1 section-title'>
+          <h2>Doctores</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+           {/*props.doctors*/}
           </p>
         </div>
         <div className='row'>
+      
           <div className='portfolio-items'>
+         
+            {/*
+             props.data.map((doctor,index)=>{
+              <div className='col-sm-6 col-md-4 col-lg-4'>
+                <h1>{doctor.name}</h1>
+              </div>
+            })
+            
             <div className='col-sm-6 col-md-4 col-lg-4'>
               <div className='portfolio-item'>
                 <div className='hover-bg'>
                   {' '}
                   <a
-                    href='img/portfolio/01-large.jpg'
-                    title='Project Title'
+                    href=''
+                    title='Nombre'
                     data-lightbox-gallery='gallery1'
                   >
                     <div className='hover-text'>
@@ -199,7 +207,7 @@ export const Gallery = (props) => {
                   </a>{' '}
                 </div>
               </div>
-            </div>
+  </div>*/}
           </div>
         </div>
       </div>

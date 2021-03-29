@@ -18,21 +18,37 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({})
+  const [dataDoctor, setDataDoctor] = useState()
+  const url ='http://35.239.252.119:8000/api/doctor'
+  
+  const fetchapi = async () => {
+    //const response = await fetch(url)
+    //const responseJson = await response.json()
+    
+    //console.log(responseJson)
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setDataDoctor(data)
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   useEffect(() => {
     setLandingPageData(JsonData)
+    fetchapi()
   }, [])
 
   return (
     <div>
       <Navigation />
       <Header data={landingPageData.Header} />
-      <Features data={landingPageData.Features} />
       <About data={landingPageData.About} />
-      <Services data={landingPageData.Services} />
-      <Gallery />
+      <Features data={dataDoctor} />
       <Testimonials data={landingPageData.Testimonials} />
-      <Team data={landingPageData.Team} />
-      <Contact data={landingPageData.Contact} />
     </div>
   )
 }
