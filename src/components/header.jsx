@@ -1,27 +1,16 @@
 export const Header = (props) => {
   return (
-    <header id='header'>
-      <div className='intro'>
-        <div className='overlay'>
-          <div className='container'>
-            <div className='row'>
-              <div className='col-md-12 col-md-offset-2 intro-text'>
-                <h1>
-                  {props.data ? props.data.title : 'Loading'}
-                  <span></span>
-                </h1>
-                <p>{props.data ? props.data.paragraph : 'Loading'}</p>
-                <a
-                  href='#features'
-                  className='btn btn-custom btn-lg page-scroll'
-                >
-                  Agendar cita
-                </a>{' '}
-              </div>
-            </div>
-          </div>
-        </div>
+    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container text-center text-md-left" data-aos="fade-up">
+      <h1>{props.data.title}</h1>
+      <h2>{props.data.paragraph}</h2>
+      <div class="buttons">
+        <button class="btn-get-started btn mr-2">Soy paciente</button>
+        <button href="#about" class="btn-get-started btn">Soy doctor</button>
       </div>
-    </header>
+      
+    </div>
+    
+  </section>
   )
 }

@@ -1,41 +1,40 @@
 export const About = (props) => {
   return (
-    <div id='about'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-xs-12 col-md-6'>
-            {' '}
-            <img src='img/about.jpg' className='img-responsive' alt='' />{' '}
+   
+     <section id="about" class="about">
+      <div class="container">
+      <h3 class="centerText">Sobre nosotros</h3>
+      <br>
+      </br>
+      <br></br>
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="assets/img/about.jpg" class="img-fluid" alt=""></img>
           </div>
-          <div className='col-xs-12 col-md-6'>
-            <div className=''>
-              <h2>Sobre nosotros</h2>
-              <p>{props.data ? props.data.paragraph : 'loading...'}</p>
-              <h3></h3>
-              <div className='list-style'>
-                <div className='col-lg-6 col-sm-6 col-xs-12'>
-                  <ul>
-                    {props.data
-                      ? props.data.Why.map((d, i) => (
-                          <li key={`${d}-${i}`}>{d}</li>
-                        ))
-                      : 'loading'}
-                  </ul>
-                </div>
-                <div className='col-lg-6 col-sm-6 col-xs-12'>
-                  <ul>
-                    {props.data
-                      ? props.data.Why2.map((d, i) => (
-                          <li key={`${d}-${i}`}> {d}</li>
-                        ))
-                      : 'loading'}
-                  </ul>
-                </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+           
+            <p class="aboutus">
+              {props.data.paragraph}
+            </p>
+            
+            {/*<div class="row icon-boxes">
+              <div class="col-md-6">
+                <i class="bx bx-receipt"></i>
+                <h4>Corporis voluptates sit</h4>
+                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
               </div>
-            </div>
+              <div class="col-md-6 mt-4 mt-md-0">
+                <i class="bx bx-cube-alt"></i>
+                <h4>Ullamco laboris nisi</h4>
+                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+              </div>
+            </div>*/}
           </div>
         </div>
+
       </div>
-    </div>
+     
+    </section>
+    
   )
 }
