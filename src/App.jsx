@@ -22,8 +22,8 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   speedAsDuration: true,
 })
 
-const url ='http://35.239.252.119:8000/api/doctor'
-const urlMeeting ='http://35.239.252.119:8000/api/meeting'
+const url ='https://teleconsul.org:8000/api/doctor'
+const urlMeeting ='http://teleconsul.org:8000/api/meeting'
 
 class App extends Component {
   state = {
