@@ -7,7 +7,7 @@ export const NavigationDoctor = (props) => {
     <div className="container d-flex align-items-center">
 
       <div className="logo mr-auto">
-        <h1><a href="index.html">Teleconsul</a></h1>
+        <h1><a href="#"><img src="https://teleconsul.net/img/teleconsullogo.jfif"></img></a></h1>
       
       </div>
 
