@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+/*
+  Enrutador
+*/
+
+import Routes from './routes/Routes'
 
 ReactDOM.render(
   <React.Fragment>
-    <App />
+    <Routes />
   </React.Fragment>,
   document.getElementById('root')
 );

@@ -12,10 +12,12 @@ import SmoothScroll from 'smooth-scroll'
 
 import axios from 'axios'
 import {Modal,ModalBody,ModalFooter,ModalHeader,Input,Label, FormGroup,Button, Form} from 'reactstrap'
-import {Dropdown,DropdownMenu,DropdownItem,DropdownToggle} from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import Dropzone from 'react-dropzone'
 
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -23,7 +25,8 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 })
 
 const url ='https://teleconsul.org:8000/api/doctor'
-const urlMeeting ='http://teleconsul.org:8000/api/meeting'
+const urlMeeting ='https://teleconsul.org:8000/api/meeting/restermeet'
+//
 
 class App extends Component {
   state = {
@@ -40,6 +43,8 @@ class App extends Component {
       status:'2',
       created_at:'',
       client:'',
+      name: '',
+      lastname: '',
       mail: '',
     },
     horarios: [],
@@ -54,23 +59,23 @@ class App extends Component {
   consultaDoctores = () =>{
     axios.get(url).then(response=>{
       this.setState({data:response.data});
+    
     });
   }
 
   handleChange = async e =>{
     e.persist();
     await this.setState({
-      horario_select:  e.target.id == 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas:this.state.horario_select,
+      horario_select:  e.target.id === 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas:this.state.horario_select,
       cita:{
         ...this.state.cita,
         [e.target.name]: e.target.value,
-        hora_select: e.target.id == 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas[0].hora :e.target.name=='hora_select' ? e.target.value: this.state.cita.hora_select,
-        id_cita: e.target.id == 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas[0].id_cita :e.target.name=='hora_select' ? e.target[e.target.options.selectedIndex].id: this.state.cita.id_cita,
+        hora_select: e.target.id === 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas[0].hora :e.target.name==='hora_select' ? e.target.value: this.state.cita.hora_select,
+        id_cita: e.target.id === 'fecha' ? this.state.horarios[ e.target.options.selectedIndex].horas[0].id_cita :e.target.name==='hora_select' ? e.target[e.target.options.selectedIndex].id: this.state.cita.id_cita,
       },
      
 
     });
-    console.log(this.state.terminos);
   }
 
   terminosCondiciones=async event =>{
@@ -102,26 +107,51 @@ class App extends Component {
 
   registrarCita=(event) => {
       event.preventDefault();
-     
-      var citaFinal = {
-        f_ini: this.state.cita.fecha_select+' '+this.state.cita.hora_select,
-        f_fin: this.state.cita.fecha_select+' '+this.state.cita.hora_select,
-        id_user: this.state.cita.id_user+'',
-        created_at: "2021-03-28 12:55:00",
-        status: "2",
-        client: this.state.cita.mail
-
-      };
-
-      axios.put(urlMeeting+"/"+ this.state.cita.id_cita,citaFinal).then(response=>{
-        this.switchModal();
-        this.consultaDoctores();
-        //console.log(response);
+       
+      if(this.state.cita.name=='' || this.state.cita.description=='' || this.state.cita.mail==''){
+          alert("Favor de llenar los campos requeridos");
+          return false;
+      }
+      let fd = new FormData();
+      var docs = this.state.archivos;
+      docs.map((doc) => {
+          fd.append('documents[]',doc);
       });
-     // console.log(citaFinal);
+      fd.append('f_ini', this.state.cita.fecha_select+' '+this.state.cita.hora_select);
+      fd.append('f_fin', this.state.cita.fecha_select+' '+this.state.cita.hora_select);
+      fd.append('id_user', this.state.cita.id_user);
+      fd.append('status',2);
+      fd.append('name', this.state.cita.name);
+      fd.append('lastname', this.state.cita.lastname);
+      fd.append('description', this.state.cita.description);
+      fd.append('document_type', this.state.cita.document_type);
+      fd.append('document_id', this.state.cita.document_id);
+      fd.append('mail',this.state.cita.mail);
+      fd.append('id',this.state.cita.id_cita);
+      fd.append('created_at',new Date().toISOString().replace('T', ' ').substr(0, 19));
+
+     // console.log(this.state.cita);
+
+      axios.post(urlMeeting, fd, {headers: {
+
+          'Content-Type': 'multipart/form-data; boundary=${data._boundary}',
+          
+        }}).then(response=>{
+          console.log(response);
+        alert("La cita se registró de forma correcta, recibira un correo de notificación. En caso de no visualizarlo revisar el correo Spam.");
+         this.switchModal();
+          this.consultaDoctores();
+         window.location.href= './';
+          
+      }).catch(function (error) {
+          console.log(error.response.data);
+          alert("Ocurrio un error al registrar la cita");
+
+      });
   }
   componentDidMount() {
     this.consultaDoctores();
+   
   }
   componentDidUpdate() {
     
@@ -130,14 +160,21 @@ class App extends Component {
 
   revisaArchivo=(files,rejectedFiles) => {
     this.setState({archivos: files});
+    if(rejectedFiles.length > 0){
+        alert("El archivo es demasiado pesado");
+    }
   }
 
+  redirecciona= (page) =>{
+    window.location.href= './'+page;
+  }
   render(){
       return (
         <>
+        
         <div>
           <Navigation />
-          <Header data={JsonData.Header} />
+          <Header data={JsonData.Header} redirecciona = {this.redirecciona}/>
           <About data={JsonData.About} />
           <Features data={this.state.data} openModal={this.switchModal} selectCita={this.seleccionaCita}/>
           <Testimonials data={JsonData.Testimonials} />
@@ -150,22 +187,22 @@ class App extends Component {
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
-                    <Label for="client">Nombre</Label>
-                    <Input type="text" id="client" name='client' onChange={this.handleChange}/>
+                    <Label for="name">Nombre</Label>
+                    <Input type="text" id="name" name='name' onChange={this.handleChange}/>
                 </FormGroup>
               </div>
               <div className="col-md-6">
                 <FormGroup>
-                    <Label for="client">Apellido</Label>
-                    <Input type="text" id="apellido" name='apellido' onChange={this.handleChange}/>
+                    <Label for="lastname">Apellido</Label>
+                    <Input type="text" id="lastname" name='lastname' onChange={this.handleChange}/>
                 </FormGroup>
               </div>
             </div>
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
-                    <Label for="documento">Documento</Label>
-                    <select className="form-control" type="text" id="documento" name="documento" onChange={this.handleChange}>
+                    <Label for="document_type">Documento</Label>
+                    <select className="form-control" type="text" id="document_type" name="document_type" onChange={this.handleChange}>
                      <option>DNI</option>
                      <option>Pasaporte</option>
                      <option>Carnet de extranjería</option>
@@ -174,8 +211,8 @@ class App extends Component {
               </div>
               <div className="col-md-6">
                 <FormGroup>
-                    <Label for="documentid">Número de Documento</Label>
-                    <Input type="text" id="documentid" name='documentid' onChange={this.handleChange}/>
+                    <Label for="document_id">Número de Documento</Label>
+                    <Input type="text" id="document_id" name='document_id' onChange={this.handleChange}/>
                 </FormGroup>
               </div>
             </div>
@@ -190,11 +227,11 @@ class App extends Component {
             </FormGroup>
             <FormGroup>
                 <Label for="descripcion">Especificación de síntomas / Comentarios</Label>
-                <textarea class="form-control" id="descripcion" rows="3"></textarea>
+                <textarea onChange={this.handleChange} className="form-control" id="descripcion" name="description" rows="3"></textarea>
             </FormGroup>
             <FormGroup>
               <Label for="documents">Documentos</Label>
-              <Dropzone id="documents" onDrop={this.revisaArchivo} maxSize={30000} multiple={true}>
+              <Dropzone id="documents" name="documents" onDrop={this.revisaArchivo} maxSize={250000} multiple={true}>
                 {({getRootProps, getInputProps}) => (
                   <div {...getRootProps()}  className="dropzone">
                     <input {...getInputProps()} />
@@ -212,8 +249,8 @@ class App extends Component {
             <FormGroup>
                <div className="row">
                   <div className="col-md-6">
-                    <Label for="fecha">Fecha</Label>
-                    <select className="form-control" type="text" id="fecha" name="fecha_select" v>
+                    <Label for="fecha_select">Fecha</Label>
+                    <select className="form-control" type="text" id="fecha" name="fecha_select" onChange={this.handleChange}>
                     {this.state.horarios
                         ? this.state.horarios.map((horario, i) => (
                             <option key={i} value={horario.fecha} id={horario.id}>{horario.Fecha}</option>
@@ -222,7 +259,7 @@ class App extends Component {
                     </select>
                   </div>
                   <div className="col-md-6">
-                    <Label for="hora">Hora</Label>
+                    <Label for="hora_select">Hora</Label>
                     <select className="form-control" type="text" id="hora" name="hora_select" onChange={this.handleChange}>
                     {this.state.horario_select
                         ? this.state.horario_select.map((hora, i) => (
@@ -237,10 +274,13 @@ class App extends Component {
              
             </FormGroup>
             <FormGroup>
-           
-                <label className="form-control" for="terminos">
-                <input className="" type="checkbox" value="" id="terminos" name ="terminos"  onChange={this.terminosCondiciones}/> He leido y acepto los terminos y condiciones
+                          
+                <label for="terminos">
+                  <input className="" type="checkbox" value="" id="terminos" name ="terminos"  onChange={this.terminosCondiciones}/> He leído y estoy de acuerdo con los&nbsp;
+                  <a href="/terminos"  target="_blank"> terminos y condiciones</a> para pacientes y la&nbsp;
+                  <a href="/politicas"  target="_blank"> política de privacidad</a> de la plataforma.
                 </label>
+                
             </FormGroup>
             
           </ModalBody>
@@ -249,7 +289,7 @@ class App extends Component {
             <Button color="secondary"  onClick={this.switchModal}>Cerrar</Button>
           </ModalFooter>
           </Form>
-        </Modal>
+                        </Modal>
         
         </>
       )
