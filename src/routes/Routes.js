@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter,Switch,Route} from 'react-router-dom'
+import { BrowserRouter,Switch,Route} from 'react-router-dom'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import App from '../App'
@@ -17,7 +17,7 @@ import DoctorEdit from '../pages/DoctorEdit'
 function Routes(){
     return(
         <BrowserRouter>
-        <Switch>
+            <Switch>
             <Route exact path='/' component={App}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
@@ -31,7 +31,7 @@ function Routes(){
             <Route exact path='/admincitas' component={Citas}/>
             <Route exact path='/perfil' component={UserInfo}/>
             <Route exact path='/doctorUser' component={DoctorEdit}/>
-        </Switch>
+            </Switch>
         </BrowserRouter>
     );
 }

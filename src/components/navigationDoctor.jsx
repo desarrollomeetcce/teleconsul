@@ -13,7 +13,7 @@ export const NavigationDoctor = (props) => {
 
       <nav className="nav-menu d-none d-lg-block">
         <ul>
-          <li className=""><a href="panelPrincipal#citas">Inicio</a></li>
+          <li className=""><a href="panelGeneral">Inicio</a></li>
           <li><a href="panelPrincipal#horarios">Horarios</a></li>
           <li><a href="pacientes#pacientes">Pacientes</a></li>
           <li className="drop-down"><a>{props.name}</a>

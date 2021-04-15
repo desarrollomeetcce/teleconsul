@@ -104,8 +104,12 @@ class Citas extends Component {
       if(!cookies.get("nombre")){
         window.location.href= './login';
       }
+      if(cookies.get("type_user")!=1){
+        window.location.href= './login';
+      }
        this.consultaCitas();
        this.consultaCitasHistorial();
+       this.consultaCitasHistorial2();
     }
   
     render(){
@@ -126,7 +130,7 @@ class Citas extends Component {
                     fixedHeader
                     fixedHeaderScrollHeight="600px"
                     paginationComponentOptions={pag}
-                    onRowClicked={this.pacienteReceta}/>
+                    onRowClicked={this.pacienteCick}/>
                 </div>
             </div>
             <div className="row py-5 mt-4 justify-content-center">
@@ -149,7 +153,7 @@ class Citas extends Component {
                 <DataTable
                   columns={columnas}
                   data={this.state.historial}
-                  title="Citas Pendientes"
+                  title="Citas Historial"
                   pagination
                   fixedHeader
                   fixedHeaderScrollHeight="600px"
@@ -274,7 +278,7 @@ class Citas extends Component {
           alert("Ocurrió un error al consultar citas");
       });
     }
-    consultaCitasHistorial=() => {
+    consultaCitasHistorial2=() => {
       //console.log(cookies.get('id'));
       var updateMeet = {
         status: '5',

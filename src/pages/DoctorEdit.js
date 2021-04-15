@@ -41,6 +41,9 @@ class UserInfo extends Component {
           window.location.href= './login';
           
         }
+        if(cookies.get("type_user")!=1){
+            window.location.href= './login';
+          }
         if(cookies.get("id_doctor")){
             console.log("Busca doctor");
           this.getDoctorInfo();

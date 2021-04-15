@@ -261,7 +261,7 @@ class Pacientes extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary"  type="submit">Enviar</Button>
-            <Button color="secondary"  onClick={this.switchModal}>Cerrar</Button>
+            <Button color="secondary"  onClick={this.switchModalReceta}>Cerrar</Button>
           </ModalFooter>
           </Form>
         </Modal>
@@ -342,7 +342,7 @@ class Pacientes extends Component {
           }}).then(response=>{
           
             alert("Se envio la receta al paciente");
-
+            this.switchModalReceta();
             
         }).catch(function (error) {
             console.log(error.response.data);

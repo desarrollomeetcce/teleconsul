@@ -21,6 +21,9 @@ class AddUser extends Component {
         if(!cookies.get("nombre")){
           window.location.href= './login';
         }
+        if(cookies.get("type_user")!=1){
+            window.location.href= './login';
+          }
         if(cookies.get("id_doctor")){
             cookies.remove('id_doctor', {path:'/'});
         }

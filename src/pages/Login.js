@@ -33,6 +33,7 @@ class Login extends Component {
                 cookies.set('document_type', response.data[0].document_type,{path:'/'});
                 cookies.set('document_id', response.data[0].document_id,{path:'/'});
                 cookies.set('description', response.data[0].description,{path:'/'});
+                cookies.set('type_user', response.data[0].type_user,{path:'/'});
                 
 
                 if( response.data[0].type_user== 1){
@@ -78,6 +79,7 @@ class Login extends Component {
             cookies.remove('document_id', {path:'/'});
             cookies.remove('description', {path:'/'});
             cookies.remove('id_doctor', {path:'/'});
+            cookies.remove('type_user', {path:'/'});
         }
       }
    
