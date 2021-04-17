@@ -26,10 +26,25 @@ class Register extends Component {
         archivos: [],
         terminos:false,
     }
+    checkProperties(obj) {
+        for (var key in obj) {
+            if (obj[key] !== null && obj[key] != "")
+                return false;
+        }
+        return true;
+    }
     registrarDoctor=(event) => {
         event.preventDefault();
        
         var request = this.state.doctorinfo;
+        if(this.checkProperties(request)){
+            alert("Todos los campos son requeridos");
+            return false;
+        }
+        if(this.state.archivos.length == 0){
+            alert("Debe adjuntar al menos un documento");
+            return false;
+        }
         let fd = new FormData();
         var docs = this.state.archivos;
         docs.map((doc) => {
@@ -47,6 +62,8 @@ class Register extends Component {
         fd.append('speciality',request.speciality);
         fd.append('picture',request.picture);
         fd.append('description',request.description);
+
+      
         request['documents'] =  fd;
        console.log(request);
   
@@ -123,7 +140,7 @@ class Register extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
         
                             
@@ -133,7 +150,7 @@ class Register extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
         
                           
@@ -143,7 +160,7 @@ class Register extends Component {
                                         <i className="fa fa-envelope text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
         
                             <div className="input-group col-lg-12 mb-4">
@@ -153,7 +170,7 @@ class Register extends Component {
                                     </span>
                                 </div>
                              
-                                <input onChange={this.handleChange} id="phone" type="tel" name="phone" placeholder="Teléfono" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="phone" type="tel" name="phone" placeholder="Teléfono" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
                             
                             <div className="input-group col-lg-12 mb-4">
@@ -162,12 +179,12 @@ class Register extends Component {
                                         <i className="fa fa-id-card-o text-muted"></i>
                                     </span>
                                 </div>
-                                <select onChange={this.handleChange} id="document_type" name="document_type" className="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
+                                <select onChange={this.handleChange} id="document_type" name="document_type" className="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted" required>
                                     <option>DNI</option>
                                     <option>Pasaporte</option>
                                     <option>Carnet de extranjería</option>
                                 </select>
-                                <input onChange={this.handleChange} id="document_id"  name="document_id" placeholder="Número de docmuento" className="form-control bg-white border-md border-left-0 pl-3"/>
+                                <input onChange={this.handleChange} id="document_id"  name="document_id" placeholder="Número de docmuento" className="form-control bg-white border-md border-left-0 pl-3" required/>
                             </div>
 
         
@@ -178,7 +195,7 @@ class Register extends Component {
                                         <i className="fa fa-black-tie text-muted"></i>
                                     </span>
                                 </div>
-                                <select onChange={this.handleChange} id="speciality" name="speciality" className="form-control custom-select bg-white border-left-0 border-md">
+                                <select onChange={this.handleChange} id="speciality" name="speciality" className="form-control custom-select bg-white border-left-0 border-md" required>
                                 <option value="0">Especialidad*</option>
                                     <option value="1" className="text-capitalize">ADMINISTRACION DE HOSPITALES</option>
                                     <option value="2" className="text-capitalize">ADMINISTRACION DE SALUD</option>
@@ -384,7 +401,7 @@ class Register extends Component {
                                      
                                     </span>
                                 </div>
-                                <textarea  onChange={this.handleChange} id="description" name="description" placeholder="Descripción" className="form-control bg-white border-left-0 border-md"/>
+                                <textarea  onChange={this.handleChange} id="description" name="description" placeholder="Descripción" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
                             <div className="input-group col-lg-12 mb-4">
                                 <div className="input-group-prepend">
@@ -392,7 +409,7 @@ class Register extends Component {
                                         <i className="fa fa-lock text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="psasword" type="password" name="psasword" placeholder="Password" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="psasword" type="password" name="psasword" placeholder="Password" className="form-control bg-white border-left-0 border-md" required/>
                             </div>
                              <div className="input-group col-lg-12 mb-4">
                               

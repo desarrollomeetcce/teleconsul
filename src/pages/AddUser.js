@@ -60,7 +60,7 @@ class AddUser extends Component {
         return(
           
         <>
-        <NavigationAdmin name={cookies.get("nombre")+' '+cookies.get("apellido")}/>
+        <NavigationAdmin name={cookies.get("nombre")+' '+cookies.get("apellido")} />
         <div className="container ">
             <div className="row py-5 mt-4 align-items-center ">
               
@@ -80,7 +80,7 @@ class AddUser extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md"  required />
                             </div>
         
                             
@@ -90,7 +90,7 @@ class AddUser extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md" required />
                             </div>
         
                           
@@ -100,7 +100,7 @@ class AddUser extends Component {
                                         <i className="fa fa-envelope text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md" required />
                             </div>
         
 
@@ -110,7 +110,7 @@ class AddUser extends Component {
                                         <i className="fa fa-lock text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="password" type="password" name="password" placeholder="Password" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="password" type="password" name="password" placeholder="Password" className="form-control bg-white border-left-0 border-md" required />
                             </div>
                            
                             

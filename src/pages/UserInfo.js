@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { NavigationAdmin }  from '../components/navigationAdmin'
+import { NavigationDoctor }  from '../components/navigationDoctor'
 
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
@@ -100,7 +101,9 @@ class DoctorEdit extends Component {
         return(
           
         <>
-        <NavigationAdmin name={cookies.get("nombre")+' '+cookies.get("apellido")}/>
+        {cookies.get("type_user") == 1 ?  <NavigationAdmin name={cookies.get("nombre")+' '+cookies.get("apellido")}/>
+        :  <NavigationDoctor name={cookies.get("nombre")+' '+cookies.get("apellido")}/>}
+       
         <div className="container ">
             <div className="row py-5 mt-4 align-items-center ">
               
@@ -120,7 +123,7 @@ class DoctorEdit extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input  value={this.state.userinfo.name} onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md"/>
+                                <input  value={this.state.userinfo.name} onChange={this.handleChange} id="name" type="text" name="name" placeholder="Nombre" className="form-control bg-white border-left-0 border-md" required />
                             </div>
         
                             
@@ -130,7 +133,7 @@ class DoctorEdit extends Component {
                                         <i className="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <input value={this.state.userinfo.lastname}  onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md"/>
+                                <input value={this.state.userinfo.lastname}  onChange={this.handleChange} id="lastName" type="text" name="lastname" placeholder="Apellidos" className="form-control bg-white border-left-0 border-md" required />
                             </div>
                             <div className="input-group col-lg-12 mb-4">
                                 <div className="input-group-prepend">
@@ -143,7 +146,7 @@ class DoctorEdit extends Component {
                                     <option value="Pasaporte">Pasaporte</option>
                                     <option value="Carnet">Carnet de extranjería</option>
                                 </select>
-                                <input value={this.state.userinfo.document_id} onChange={this.handleChange} id="document_id"  name="document_id" placeholder="Número de docmuento" className="form-control bg-white border-md border-left-0 pl-3"/>
+                                <input value={this.state.userinfo.document_id} onChange={this.handleChange} id="document_id"  name="document_id" placeholder="Número de docmuento" className="form-control bg-white border-md border-left-0 pl-3" required />
                             </div>
                           
                             <div className="input-group col-lg-12 mb-4">
@@ -152,7 +155,7 @@ class DoctorEdit extends Component {
                                         <i className="fa fa-envelope text-muted"></i>
                                     </span>
                                 </div>
-                                <input value={this.state.userinfo.email} onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md"/>
+                                <input value={this.state.userinfo.email} onChange={this.handleChange} id="email" type="email" name="email" placeholder="Correo" className="form-control bg-white border-left-0 border-md" required />
                             </div>
                             <div className="input-group col-lg-12 mb-4">
                                 <div className="input-group-prepend">
@@ -161,7 +164,7 @@ class DoctorEdit extends Component {
                                     </span>
                                 </div>
                              
-                                <input value={this.state.userinfo.phone} onChange={this.handleChange} id="phone" type="tel" name="phone" placeholder="Teléfono" className="form-control bg-white border-left-0 border-md"/>
+                                <input value={this.state.userinfo.phone} onChange={this.handleChange} id="phone" type="tel" name="phone" placeholder="Teléfono" className="form-control bg-white border-left-0 border-md" required />
                             </div>
                             <div className="input-group col-lg-12 mb-4">
                                 <div className="input-group-prepend">
@@ -374,7 +377,7 @@ class DoctorEdit extends Component {
                                      
                                     </span>
                                 </div>
-                                <textarea  value={this.state.userinfo.description} onChange={this.handleChange} id="description" name="description" placeholder="Descripción" className="form-control bg-white border-left-0 border-md"/>
+                                <textarea  value={this.state.userinfo.description} onChange={this.handleChange} id="description" name="description" placeholder="Descripción" className="form-control bg-white border-left-0 border-md" required />
                             </div>
                             <div className="input-group col-lg-12 mb-4">
                                
@@ -400,7 +403,7 @@ class DoctorEdit extends Component {
                                         <i className="fa fa-lock text-muted"></i>
                                     </span>
                                 </div>
-                                <input onChange={this.handleChange} id="password" type="password" name="password" placeholder="Password" className="form-control bg-white border-left-0 border-md"/>
+                                <input onChange={this.handleChange} id="password" type="password" name="password" placeholder="Password" className="form-control bg-white border-left-0 border-md" />
                             </div>
                            
                             
