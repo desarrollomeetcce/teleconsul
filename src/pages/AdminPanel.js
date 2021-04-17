@@ -11,7 +11,7 @@ import axios from 'axios'
 const urlPend ='https://teleconsul.org:8000/api/user/pend_users'
 const urlUsers ='https://teleconsul.org:8000/api/user/not_pend'
 const urlUPdateStatus = 'https://teleconsul.org:8000/api/user/updatestatus'
-const urlResetPass = 'https://teleconsul.org:8000/api/user/changedata'
+const urlResetPass = 'https://teleconsul.org:8000/api/user/changepass'
 
 const cookies = new Cookies()
 
