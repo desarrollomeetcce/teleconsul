@@ -45,7 +45,7 @@ class UserInfo extends Component {
             window.location.href= './login';
           }
         if(cookies.get("id_doctor")){
-            console.log("Busca doctor");
+   
           this.getDoctorInfo();
         }else{
             this.setState({userinfo:{
@@ -69,6 +69,16 @@ class UserInfo extends Component {
         var request = this.state.userinfo;
         let fd = new FormData();
         var docs = this.state.userinfo.documents;
+        if(!cookies.get("id_doctor")){
+            if(this.state.userinfo.password==''){
+                alert("Debe asignar una contraseña");
+                return false;
+            }
+            if(docs.length==0){
+                alert("Debe agregar al menos un documento");
+                return false;
+            }
+        }
         if(docs.length!=0){
             docs.map((doc) => {
                 fd.append('documents[]',doc);

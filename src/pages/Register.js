@@ -23,7 +23,6 @@ class Register extends Component {
             picture: 'None',
             description: '',
         },
-        archivos: [],
         terminos:false,
     }
     checkProperties(obj) {
@@ -119,15 +118,12 @@ class Register extends Component {
         <div className="container ">
             <div className="row py-5 mt-4 align-items-center ">
               
-                <div className="col-md-5 pr-lg-5 mb-5 mb-md-0 ">
-                    <img src="https://teleconsul.net/img/teleconsullogo.jfif" alt="" className="img-fluid mb-3 d-none d-md-block"/>
+                
+                <div className="col-md-12 col-lg-12 ml-auto">
+                
                     <h1>Postularse</h1>
                     <p className="font-italic text-muted mb-0">Forma parte de nuestro equipo.</p>
-                   
-                </div>
-        
-                
-                <div className="col-md-7 col-lg-6 ml-auto">
+                    <br></br>
                    <Form  onSubmit={this.registrarDoctor}> 
                         <h3>Registro del Doctor</h3>
                         <br></br>

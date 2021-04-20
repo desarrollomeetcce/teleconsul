@@ -63,7 +63,7 @@ class DoctorEdit extends Component {
         fd.append('document_type',request.document_type);
         fd.append('document_id',request.document_id);
         fd.append('phone',request.phone);
-        fd.append('psasword',request.password);
+        fd.append('password',request.password);
         fd.append('speciality',request.speciality);
         fd.append('description',request.description);
  

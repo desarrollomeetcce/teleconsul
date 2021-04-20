@@ -44,13 +44,13 @@ class Login extends Component {
                     window.location.href= './panelPrincipal';
                 }
            }else{
-                console.log(response);
+               // console.log(response);
                 alert("Usuario o contraseña incorrectos");
            }
            this.setState({password:''});
             
         }).catch(function (error) {
-            console.log(error.response.data);
+           // console.log(error.response.data);
             alert("Ocurrio un error al registrar el usuario");
             window.location.href= './';
         });

@@ -30,6 +30,7 @@ const urlMeeting ='https://teleconsul.org:8000/api/meeting/restermeet'
 
 class App extends Component {
   state = {
+    cargando: false,
     abierto : false,
     terminos: false,
     data:[],
@@ -107,10 +108,16 @@ class App extends Component {
 
   registrarCita=(event) => {
       event.preventDefault();
-       
+      this.setState({cargando: true});
       if(this.state.cita.name=='' || this.state.cita.description=='' || this.state.cita.mail==''){
           alert("Favor de llenar los campos requeridos");
+          this.setState({cargando: false});
           return false;
+      }
+      if(this.state.archivos.length == 0){
+        alert("Debe adjuntar al menos un documento");
+        this.setState({cargando: false});
+        return false;
       }
       let fd = new FormData();
       var docs = this.state.archivos;
@@ -146,6 +153,8 @@ class App extends Component {
       }).catch(function (error) {
           console.log(error.response.data);
           alert("Ocurrio un error al registrar la cita");
+          this.setState({cargando: false});
+          window.location.href= './';
 
       });
   }
@@ -171,16 +180,17 @@ class App extends Component {
   render(){
       return (
         <>
-        
+       
         <div>
           <Navigation />
-          <Header data={JsonData.Header} redirecciona = {this.redirecciona}/>
+          <Header data={JsonData.Header} redirecciona = {this.redirecciona} required />
           <About data={JsonData.About} />
-          <Features data={this.state.data} openModal={this.switchModal} selectCita={this.seleccionaCita}/>
+          <Features data={this.state.data} openModal={this.switchModal} selectCita={this.seleccionaCita} required />
           <Testimonials data={JsonData.Testimonials} />
         </div>
         
         <Modal className="modalForm" isOpen={this.state.abierto}>
+        {this.state.cargando ? <div class="fondo"><div class="spinner" /></div>: ""}
           <ModalHeader>Registrar cita</ModalHeader>
           <Form onSubmit={this.registrarCita}>
           <ModalBody>
@@ -188,13 +198,13 @@ class App extends Component {
               <div className="col-md-6">
                 <FormGroup>
                     <Label for="name">Nombre</Label>
-                    <Input type="text" id="name" name='name' onChange={this.handleChange}/>
+                    <Input type="text" id="name" name='name' onChange={this.handleChange} required />
                 </FormGroup>
               </div>
               <div className="col-md-6">
                 <FormGroup>
                     <Label for="lastname">Apellido</Label>
-                    <Input type="text" id="lastname" name='lastname' onChange={this.handleChange}/>
+                    <Input type="text" id="lastname" name='lastname' onChange={this.handleChange} required />
                 </FormGroup>
               </div>
             </div>
@@ -212,22 +222,22 @@ class App extends Component {
               <div className="col-md-6">
                 <FormGroup>
                     <Label for="document_id">Número de Documento</Label>
-                    <Input type="text" id="document_id" name='document_id' onChange={this.handleChange}/>
+                    <Input type="text" id="document_id" name='document_id' onChange={this.handleChange} required />
                 </FormGroup>
               </div>
             </div>
             <FormGroup>
 
-                <Input type="hidden" id="id_user" name='id_user' onChange={this.handleChange} value={this.state.cita? this.state.cita.id_user : ''}/>
+                <Input type="hidden" id="id_user" name='id_user' onChange={this.handleChange} value={this.state.cita? this.state.cita.id_user : ''} required />
             </FormGroup>
            
             <FormGroup>
                 <Label for="mail">Correo</Label>
-                <Input type="email" placeholder="ejemplo@mail.com" id="mail" name='mail' onChange={this.handleChange}/>
+                <Input type="email" placeholder="ejemplo@mail.com" id="mail" name='mail' onChange={this.handleChange} required />
             </FormGroup>
             <FormGroup>
                 <Label for="descripcion">Especificación de síntomas / Comentarios</Label>
-                <textarea onChange={this.handleChange} className="form-control" id="descripcion" name="description" rows="3"></textarea>
+                <textarea onChange={this.handleChange} className="form-control" id="descripcion" name="description" rows="3" required></textarea>
             </FormGroup>
             <FormGroup>
               <Label for="documents">Documentos</Label>
@@ -276,7 +286,7 @@ class App extends Component {
             <FormGroup>
                           
                 <label for="terminos">
-                  <input className="" type="checkbox" value="" id="terminos" name ="terminos"  onChange={this.terminosCondiciones}/> He leído y estoy de acuerdo con los&nbsp;
+                  <input className="" type="checkbox" value="" id="terminos" name ="terminos"  onChange={this.terminosCondiciones} required /> He leído y estoy de acuerdo con los&nbsp;
                   <a href="/terminos"  target="_blank"> terminos y condiciones</a> para pacientes y la&nbsp;
                   <a href="/politicas"  target="_blank"> política de privacidad</a> de la plataforma.
                 </label>
